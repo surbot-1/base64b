@@ -148,7 +148,7 @@ toDataURL(
   }  */
   
   
-  var c = document.createElement('canvas');
+ /* var c = document.createElement('canvas');
 var img = document.getElementById('Img1');
 c.height = img.naturalHeight;
 c.width = img.naturalWidth;
@@ -156,7 +156,32 @@ var ctx = c.getContext('2d');
 
 ctx.drawImage(img, 0, 0, c.width, c.height);
 var base64String = c.toDataURL();
-document.getElementById('div5').innerHTML +=  base64String ;
+document.getElementById('div5').innerHTML +=  base64String ;  */
+  
+  
+  function base64(file, callback){
+  var coolFile = {};
+  function readerOnload(e){
+    var base64 = btoa(e.target.result);
+    coolFile.base64 = base64;
+    callback(coolFile)
+  };
+
+  var reader = new FileReader();
+  reader.onload = readerOnload;
+
+  var file = file[0].files[0];
+  coolFile.filetype = file.type;
+  coolFile.size = file.size;
+  coolFile.filename = file.name;
+  reader.readAsBinaryString(file);
+}
+  base64( $('input[type="file"]'), function(data){
+  console.log(data.base64)
+  document.getElementById('div5').innerHTML +=  data.base64 ;
+})
+  
+  
   
   
   
