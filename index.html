@@ -159,7 +159,7 @@ var base64String = c.toDataURL();
 document.getElementById('div5').innerHTML +=  base64String ;  */
   
   
-  function base64(file, callback){
+ /* function base64(file, callback){
   var coolFile = {};
   function readerOnload(e){
     var base64 = btoa(e.target.result);
@@ -179,10 +179,34 @@ document.getElementById('div5').innerHTML +=  base64String ;  */
   base64( $('input[type="file"]'), function(data){
   console.log(data.base64)
   document.getElementById('div5').innerHTML +=  data.base64 ;
-})
+})  */
   
   
-  
+  const getImg64 = async() => {
+  const convertImgToBase64URL = (url) => {
+  console.log(url)
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = () => {
+          let canvas = document.createElement('CANVAS')
+          const ctx = canvas.getContext('2d')
+          canvas.height = img.height;
+          canvas.width = img.width;
+          ctx.drawImage(img, 0, 0);
+          const dataURL = canvas.toDataURL();
+          canvas = null;
+          resolve(dataURL)
+      }
+      img.src =  " https://icons.iconarchive.com/icons/blackvariant/button-ui-ms-office-2016/128/Excel-2-icon.png " ;
+    })
+  }
+  //for the demonstration purposes I used proxy server to avoid cross origin error
+  const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+  const image = await convertImgToBase64URL(proxyUrl+'https://image.shutterstock.com/image-vector/vector-line-icon-hello-wave-260nw-1521867944.jpg')
+  console.log(image)
+}
+getImg64()
   
   
   
