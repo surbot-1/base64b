@@ -63,7 +63,7 @@ toDataURL('https://www.gravatar.com/avatar/d50c83cc0c6523b4d3f6085295c953e0', fu
   document.getElementById('div5').innerHTML += dataUrl;
 }) */
   
-  const toDataURL = url => fetch(url)
+ /* const toDataURL = url => fetch(url)
   .then(response => response.blob())
   .then(blob => new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -77,10 +77,36 @@ toDataURL('https://www.gravatar.com/avatar/d50c83cc0c6523b4d3f6085295c953e0')
   .then(dataUrl => {
     console.log('RESULT:', dataUrl)
   document.getElementById('div5').innerHTML += dataUrl;
- }) 
+ }) */
   
 
+function toDataURL(src, callback, outputFormat) {
+  var img = new Image();
+  img.crossOrigin = 'Anonymous';
+  img.onload = function() {
+    var canvas = document.createElement('CANVAS');
+    var ctx = canvas.getContext('2d');
+    var dataURL;
+    canvas.height = this.naturalHeight;
+    canvas.width = this.naturalWidth;
+    ctx.drawImage(this, 0, 0);
+    dataURL = canvas.toDataURL(outputFormat);
+    callback(dataURL);
+  };
+  img.src = src;
+  if (img.complete || img.complete === undefined) {
+    img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+    img.src = src;
+  }
+}
 
+toDataURL(
+  'https://www.gravatar.com/avatar/d50c83cc0c6523b4d3f6085295c953e0',
+  function(dataUrl) {
+    console.log('RESULT:', dataUrl)
+    document.getElementById('div5').innerHTML += dataUrl;
+  }
+)
   
 
   
