@@ -20,6 +20,7 @@
    <input type="file" onchange="encodeImageFileAsURL(this)" /> <br>
    <input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
    <div id="imgTest"></div>
+   <img id='Img1' src=' https://icons.iconarchive.com/icons/treetog/i/128/Set-Program-Default-icon.png '>
   
    <input type="text" onkeydown="onKeyDown()" placeholder="Text" id="textField">
    <button onclick="submit()" id="submit">Submit</button>
@@ -124,7 +125,7 @@ toDataURL(
 }  */
 
   
-  function encodeImageFileAsURL() {
+/*  function encodeImageFileAsURL() {
 
     var filesSelected = document.getElementById("inputFileToLoad").files;
     if (filesSelected.length > 0) {
@@ -144,7 +145,18 @@ toDataURL(
       }
       fileReader.readAsDataURL(fileToLoad);
     }
-  }
+  }  */
+  
+  
+  var c = document.createElement('canvas');
+var img = document.getElementById('Img1');
+c.height = img.naturalHeight;
+c.width = img.naturalWidth;
+var ctx = c.getContext('2d');
+
+ctx.drawImage(img, 0, 0, c.width, c.height);
+var base64String = c.toDataURL();
+  
   
   
   
