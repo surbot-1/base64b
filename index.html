@@ -17,6 +17,8 @@
   <button onclick="abc()" id="abc">Abc</button>
 </div> <br>
   
+   <input type="file" onchange="encodeImageFileAsURL(this)" /> <br>
+  
    <input type="text" onkeydown="onKeyDown()" placeholder="Text" id="textField">
    <button onclick="submit()" id="submit">Submit</button>
   
@@ -80,7 +82,7 @@ toDataURL('https://www.gravatar.com/avatar/d50c83cc0c6523b4d3f6085295c953e0')
  }) */
   
 
-function toDataURL(src, callback, outputFormat) {
+/* function toDataURL(src, callback, outputFormat) {
   var img = new Image();
   img.crossOrigin = 'Anonymous';
   img.onload = function() {
@@ -106,10 +108,18 @@ toDataURL(
     console.log('RESULT:', dataUrl)
     document.getElementById('div5').innerHTML += dataUrl;
   }
-)
+)  */
   
 
-  
+  function encodeImageFileAsURL(element) {
+  var file = element.files[0];
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    console.log('RESULT', reader.result)
+    document.getElementById('div5').innerHTML += reader.result;
+  }
+  reader.readAsDataURL(file);
+}
 
   
   
